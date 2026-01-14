@@ -89,3 +89,61 @@ Linux において、プロセスが Ready 状態であることを示すため�
 概略を記述するためには、簡易的な C 言語、日本語、または、英語を使いなさい。
 なお、実際の `getgid()` システム・コールの実装は、名前空間の導入により複雑になっており、今日の授業の範囲を超えている。
 この課題では、実際のコードではなく、この授業の範囲内で答えなさい。（実際のコードをそのまま回答しても、得点を与えない。）
+
+=== 解答
+
+利用する重要な変数や構造体として
+
+- `current` 変数
+- `cred` 構造体
+
+がある。
+また `current->cred->gid` のようにポインタを辿っていくと Group ID が取れる。
+
+「struct cred」の節によると、`cred` 構造体の定義は以下の通りである。
+
+#sourcecode[```
+linux-6.18.2/include/linux/cred.h
+ 111:	struct cred {
+...
+ 113:	        kuid_t          uid;            /* real UID of the task */
+ 114:	        kgid_t          gid;            /* real GID of the task */
+...
+ 141:	        struct group_info *group_info;  /* supplementary groups for euid/fsgid */
+...
+ 147:	} __randomize_layout;
+
+linux-6.18.2/include/linux/uidgid_types.h
+  11:	typedef struct {
+  12:	        gid_t val;
+  13:	} kgid_t;
+
+linux-6.18.2/include/linux/types.h
+  38:	typedef __kernel_gid32_t        gid_t;
+
+linux-6.18.2/include/uapi/asm-generic/posix_types.h
+  50:	typedef unsigned int    __kernel_gid32_t;
+```]
+
+つまり、`cred` 内の `gid` は `kgid_t` 型として管理される。
+
+「getuid()システム・コール」の節にあるコードを参考にすると（この箇所のコード内に gid 周りのコードもある）、
+`getgid()` システム・コールの実装では、`getuid()` システム・コールの実装と似たような流れで以下のように展開されると考えられる。
+
+- `current_gid()`
+- `current_cred_xxx(gid)`
+- `current_cred()->gid`
+- `rcu_dereference_protected(current->cred, 1)->gid`
+
+まとめると、`getgid()` システム・コールは、（名前空間が無効なら）次のようなコードと同じであるだろう。
+
+#sourcecode[```
+SYSCALL_DEFINE0(getgid)
+{
+	kgid_t kgid;
+	gid_t gid;
+	kgid = current->cred->gid;
+	gid = kgid.val;
+	return gid;
+}
+```]
