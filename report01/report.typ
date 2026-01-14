@@ -70,10 +70,24 @@ SYSCALL_DEFINE2(stat, const char *pathname, struct stat *statbuf)
 オペレーティング・システムでは、「一般に」プロセスは、実行待ち(Ready)、実行中(Running)、待機中(Waiting、Blocked)という３つの状態を持つ。
 Linux において、プロセスが Ready 状態であることを示すために、task struct のフィールド state に、何という値を設定しているか。
 
+=== 解答
+
+`TASK_RUNNING`（これは ```c #define TASK_RUNNING 0x00000000``` と定義されている）という値を設定している。
+
 == 問題(104) fork() システム・コール
 
 今日の授業資料の中から fork() システムコールの実装で task_struct をコピーするために呼び出される関数を3つ選び、答えなさい。
 その中で単純にその構造体をコピーしているものを選びなさい。
+
+=== 解答
+
+`fork()` システムコールの実装で `task_struct` をコピーするために呼び出される関数は以下の通り：
+
+- `copy_process`
+- `dup_task_struct`
+- `arch_dup_task_struct`
+
+また、その中で単純にその構造体をコピーしているものは `arch_dup_task_struct` である。
 
 == 問題(105) getgid システム・コール
 
