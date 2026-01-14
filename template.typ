@@ -23,6 +23,11 @@
   show figure.caption: it => pad(top: 0.6em, it)
   show figure.caption: it => text(size: 0.8em, it)
 
+  set raw(
+    // コメントだけ色が薄いカラースキーム（印刷して提出するため）
+    theme: "assets/quiet.tmTheme"
+  )
+
   set page(
     numbering: "1",
     number-align: center,
