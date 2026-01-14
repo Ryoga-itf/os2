@@ -58,8 +58,8 @@ RETURN VALUE
 
 === 解答
 
-#sourcecode[```
-引数と結果の宣言
+#sourcecode[```c
+SYSCALL_DEFINE2(stat, const char *pathname, struct stat *statbuf)
 {
    /*内容省略*/
 }
