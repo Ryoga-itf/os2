@@ -68,6 +68,21 @@ struct s1 {
 
 === 解答
 
+どこか初期化時に 1 回だけ作る想定での書き換えである。
+
+#sourcecode[```c
+static struct kmem_cache *s1_jar;
+
+初期化
+   s1_jar = kmem_cache_create( "s1", sizeof(struct s1), 0, SLAB_PANIC, NULL )
+
+利用
+   struct s1 *p;
+   p = kmem_cache_alloc( s1_jar, GFP_KERNEL );
+   use( p );
+   kmem_cache_free( s1_cache, p );
+```]
+
 
 == 問題(204) 1段のページテーブル
 
