@@ -36,7 +36,7 @@
 
 以下は、ユーザ空間でメモリを割当て、利用し、開放するプログラムの一部である。
 
-#sourcecode[```
+#sourcecode[```c
 struct s1 {
    /* 省略 */
 };
@@ -49,15 +49,15 @@ struct s1 {
 
 このプログラムを、カーネル内で動かすことを想定して `kmalloc()` と `kfree()` を使って書き換えなさい。ただし、`gfp` のフラグとしては、`GFP_KERNEL` を使いなさい。
 
-#sourcecode[```
+=== 解答
+
+#sourcecode[```c
 利用
    struct s1 *p;
-   /*回答*/
+   p = kmalloc( sizeof(struct s1), GFP_KERNEL );
    use( p );
-   /*回答*/
+   kfree( p );
 ```]
-
-=== 解答
 
 
 == 問題(203) スラブアロケータ
@@ -65,7 +65,6 @@ struct s1 {
 問題(202) のプログラムを、スラブアロケータを使って書き換えなさい。
 すなわち、`kmem_cache_create()`、`kmem_cache_alloc()`、および、`kmem_cache_free()` を使って書き換えなさい。
 ただし、`kmem_cache_create()` の 第 3 引数の `align` としては、`0` を、第 4 引数の `flags` としては、`SLAB_PANIC`、第 5 引数のコンストラクタとしては、`NULL` を指定しなさい。
-
 
 === 解答
 
