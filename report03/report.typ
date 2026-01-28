@@ -18,6 +18,10 @@
 
 === 解答
 
+- `open()` システム・コール: `rtc_dev_open()` 関数
+- `ioctl()` システム・コール: `rtc_dev_ioctl` 関数
+- `close()` システム・コール: `rtc_dev_release()` 関数
+
 == 問題(302) copy_from_user()とmemcpy()
 
 関数 `rtc_dev_ioctl()` は、`copy_from_user()` を呼び出している。
