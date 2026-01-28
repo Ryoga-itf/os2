@@ -32,21 +32,21 @@
 ただし、`copy_from_user()` は必ず成功するものとして、エラー処理を省略しなさい。
 以下の「`/*空欄*/`」を埋めなさい。
 
-#soucecode[```c
+#sourcecode[```c
 	if( memcpy( /*空欄(a)*/,/*空欄(b)*/,/*空欄(c)*/ ), 0 )
 		return -EFAULT;
 ```]
 
 なお、`memcpy()` のインタフェースは、次のようになっている。
 
-#soucecode[```c
+#sourcecode[```c
 void * memcpy(void *destination, const void *source, size_t len);
 ```]
 
 `source` は、コピー元、`destination` は、コピー先、`len` は長さ (バイト数) である。結果として `destination` を返す。
 C言語の「`,`」演算子は、次のような意味である。
 
-#soucecode[```c
+#sourcecode[```c
     式1 , 式2
 ```]
 
@@ -57,7 +57,7 @@ C言語の「`,`」演算子は、次のような意味である。
 
 === 解答
 
-#soucecode[```c
+#sourcecode[```c
    if ( memcpy(&tm, uarg, sizeof(tm)), 0 )
       return -EFAULT;
 ```]
@@ -71,7 +71,7 @@ C言語の「`,`」演算子は、次のような意味である。
 次のプログラムは、x86 CMOS RTC ハードウェアから分 (minutes) データを読み出し、変数 `x` に入れるプログラムの一部である。
 `/*空欄(a)*/`、`/*空欄(b)*/`、`/*空欄(c)*/` を埋めて完成させなさい。
 
-#soucecode[```c
+#sourcecode[```c
     unsigned char x;
     outb( /*空欄(a)*/, /*空欄(b)*/);
     x = inb( /*空欄(c)*/ );
@@ -79,7 +79,7 @@ C言語の「`,`」演算子は、次のような意味である。
 
 === 解答
 
-#soucecode[```c
+#sourcecode[```c
 unsigned char x;
 outb( 0x02, 0x70 );
 x = inb( 0x71 );
