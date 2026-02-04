@@ -107,6 +107,10 @@ void my_timer_func(/*省略*/) {
 
 === 解答
 
+ポリシーが `SCHED_NORMAL` の時、`fair_sched_class` がセットされる。
+
+また、このとき `EEVDF` で `sched_class->enqueue_task()` として呼ばれる関数は、`enqueue_task_fair()` である。
+
 == 問題(405) 二分探索木によるレディ・キューの実装
 
 以下の図は、4 つの要素を持つリストを表している。
