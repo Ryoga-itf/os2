@@ -127,3 +127,8 @@ void my_timer_func(/*省略*/) {
 注意: 正しい二分探索木は、複数存在する。
 
 === 解答
+
+#figure(
+  image("tree.png"),
+  caption: [図示した二分探索木]
+)
