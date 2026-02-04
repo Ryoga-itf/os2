@@ -49,7 +49,7 @@ while (time_before(jiffies,delay))
 
 そうなると、「デバイスドライバでは、遅いデバイスに合わせるためにしばらく待ってから処理をしたいことが多い。」#footnote[■ 実行の遅延 の章より引用] の目的を達成できない。
 
-== 問題(403) struct timer_listの利用
+== 問題(403) struct timer_list の利用
 
 関数 `f()` を実行している時に、次の関数 `h()` を、20 ミリ秒後に実行したいとする。
 
@@ -77,6 +77,26 @@ void my_timer_func(/*省略*/) {
 ```]
 
 === 解答
+
+#sourcecode[```c
+struct timer_list my_timer;
+
+int my_arg_a,my_arg_b,my_arg_c;
+
+void f(unsigned long data) {
+    timer_setup(&my_timer, my_timer_func, 0);
+    my_timer.expires = jiffies + HZ * 20 / 1000;
+    add_timer(&my_timer);
+}
+void my_timer_func(/*省略*/) {
+     h( my_arg_a,my_arg_b,my_arg_c );
+}
+```]
+
+- 空欄(a): `&my_timer`
+- 空欄(b): `my_timer_func`
+- 空欄(c): `jiffies + HZ * 20 / 1000`
+- 空欄(d): `add_timer(&my_timer)`
 
 == 問題(404) sched_class
 
