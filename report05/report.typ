@@ -129,6 +129,26 @@ int vfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
 
 === 解答
 
+#sourcecode[```c
+int vfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
+                struct dentry *dentry, const char *oldname)
+{
+        int error;
+...
+        if (!dir->i_op->symlink)
+                return -EPERM;
+...
+        error = dir->i_op->symlink(idmap, dir, dentry, /*省略*/);
+...
+        return error;
+}
+```]
+
+- 空欄(g): `dir`
+- 空欄(h): `symlink`
+- 空欄(i): `dir`
+- 空欄(j): `dentry`
+
 == 問題(506) 期末試験とアンケート
 
 期末試験について、次の事柄を答えなさい。
