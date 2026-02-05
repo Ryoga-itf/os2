@@ -31,11 +31,32 @@ void work_queue_handler(struct work_struct *work) { /* Work Queue ハンドラ *
 
 初期化
 {
-	/*空欄(c)*/(&wq1, /*空欄(d)*/);
+    /*空欄(c)*/(&wq1, /*空欄(d)*/);
 }
 ```]
 
 === 解答
+
+#sourcecode[```c
+static struct work_struct wq1;
+
+void work_queue_handler(struct work_struct *work) { /* Work Queue ハンドラ */
+    int arg1, arg2;
+    arg1 = 省略; /* f() の引数 */
+    arg2 = 省略; /* f() の引数 */
+    f(arg1, arg2);
+}
+
+初期化
+{
+    INIT_WORK(&wq1, work_queue_handler);
+}
+```]
+
+- 空欄(a): `work_struct`
+- 空欄(b): `f(arg1, arg2);`
+- 空欄(c): `INIT_WORK`
+- 空欄(d): `work_queue_handler`
 
 == 問題(502) Work Queue ハンドラの実行
 
