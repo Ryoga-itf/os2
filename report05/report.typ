@@ -103,6 +103,9 @@ Linux カーネルの中で、ファイルを表現するためのオブジェ�
 
 === 解答
 
+- `read()`: `ext4_file_read_iter()`
+- `open()`: `ext4_file_open()`
+
 == 問題(505) symlink() システムコール
 
 次の関数は、`symlink()` システム・コール、および、`symlinkat()` システム・コールを実装している `vfs_symlink()` の一部である。
