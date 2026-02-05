@@ -72,6 +72,16 @@ irqreturn_t irq_handler(int irq, void *dev) {
 
 === 解答
 
+#sourcecode[```c
+irqreturn_t irq_handler(int irq, void *dev) {
+    schedule_work(&wq1);
+    return IRQ_HANDLED;
+}
+```]
+
+- 空欄(e): `schedule_work`
+- 空欄(f): `&wq1`
+
 == 問題(503) struct file の役割
 
 Linux カーネルの中で、ファイルを表現するためのオブジェクトとして `struct inode` と `struct file` がある。
